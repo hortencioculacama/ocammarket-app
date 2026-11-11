@@ -1,0 +1,17 @@
+OCAM MARKET — versão de teste instalável (PWA)
+
+Conteúdo:
+- index.html: aplicação/site
+- manifest.webmanifest: identidade e opções de instalação
+- service-worker.js: suporte básico offline para a página inicial
+- icons/: ícones da aplicação
+- gestao-ocam.html: página de gestão incluída na versão original
+
+IMPORTANTE:
+Esta é uma cópia de teste. Não foi publicada e não altera o site de produção.
+A instalação requer alojamento HTTPS. As funções que dependem do Supabase e da Internet continuam a precisar de ligação.
+
+Android: abrir o site no Chrome e escolher Instalar aplicação / Adicionar ao ecrã principal.
+iPhone: abrir no Safari, tocar em Partilhar e escolher Adicionar ao ecrã principal.
+
+Antes de publicar, testar autenticação, fornecedor, produtos e permissões. Não usar esta cópia como substituição directa da produção.

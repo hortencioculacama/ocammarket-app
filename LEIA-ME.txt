@@ -1,0 +1,8 @@
+OCAM MARKET — pacote de integração visual funcional
+
+index.html: loja pública com o design aprovado e catálogo/supabase preservados. O acesso administrativo foi retirado da navegação pública.
+gestao-ocam.html: acesso separado à administração. A autorização continua validada pelo Supabase e pelo perfil admin.
+
+Antes de publicar: testar primeiro num deploy de pré-visualização, validar login de fornecedor, login de administrador, catálogo e submissão de produto. Não contém chaves secretas/service-role. Não substitua a publicação actual sem testes.
+
+O ficheiro gestao-ocam.html deve ser mantido com acesso não divulgado; ocultar URL não substitui RLS e validação de permissões.

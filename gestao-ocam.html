@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestão OCAM | OCAM MARKET</title>
+<style>
+:root{--navy:#071d49;--blue:#10439a;--gold:#ffc400;--ink:#10234b;--bg:#f4f7fc}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:var(--ink);background:var(--bg)}
+a{text-decoration:none;color:inherit}.top{background:var(--navy);color:white;padding:10px 5%;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:13px}.top b{color:var(--gold)}
+header{background:white;padding:18px 5%;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.logo{font-size:30px;font-weight:900;color:var(--navy)}.logo span{display:block;color:#e8ad00;font-size:20px;letter-spacing:3px}
+.tag{font-style:italic;border-left:2px solid var(--gold);padding-left:14px;font-size:13px}
+.search{display:flex;flex:1;max-width:460px;min-width:220px}.search input{flex:1;min-width:0;padding:14px;border:1px solid #d7dfed;border-radius:25px 0 0 25px}.search button{background:var(--blue);color:white;border:0;padding:0 20px;border-radius:0 25px 25px 0}
+nav{background:var(--navy);color:white;padding:0 5%;display:flex;gap:24px;align-items:center;flex-wrap:wrap}nav a{padding:17px 0;font-size:14px;font-weight:bold}nav a:hover{color:var(--gold)}nav .cta{margin-left:auto;background:var(--gold);color:var(--navy);padding:12px 18px;border-radius:24px}
+.hero{background:linear-gradient(110deg,#061735,#10439a 70%,#071d49);color:white;padding:55px 6%;display:grid;grid-template-columns:1.3fr .7fr;align-items:center;min-height:320px}
+h1{font-size:clamp(35px,5vw,58px);line-height:1.04;margin:0 0 12px}h1 span{color:var(--gold)}.hero p{font-size:19px;line-height:1.5;max-width:600px}.hero-art{text-align:center;font-size:100px}.btn{display:inline-block;background:var(--gold);color:var(--navy);padding:14px 22px;border-radius:25px;font-weight:bold}
+.trust{display:flex;gap:20px;flex-wrap:wrap;margin-top:22px;font-size:13px}
+section{padding:34px 5%}.head{margin-bottom:18px}.head h2{margin:0;font-size:25px}.head p{color:#66738b;font-size:14px}
+.cats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.cat,.card,.panel,.step{background:white;border:1px solid #e1e8f2;border-radius:15px;padding:18px;box-shadow:0 5px 16px #122b5010}
+.cat{text-align:center;font-weight:bold}.cat i{display:block;font-style:normal;font-size:34px;margin-bottom:8px}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.pic{background:#f0f4fb;border-radius:10px;text-align:center;padding:16px;font-size:48px}.card h3{font-size:16px}.card p,.muted{font-size:13px;color:#66738b}.price{font-weight:bold;color:var(--blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel h2{margin-top:0}.dark{background:var(--navy);color:white}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step b{display:block;color:var(--blue);margin-bottom:8px;font-size:20px}
+footer{background:#061735;color:white;padding:35px 5% 20px}.foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}.foot h3{color:var(--gold)}footer p,footer a{color:#dce5f6;font-size:14px;line-height:1.7}.copy{border-top:1px solid #ffffff30;margin-top:20px;padding-top:15px;font-size:12px}
+.float{position:fixed;right:18px;bottom:18px;background:#20bd5a;color:white;padding:14px 18px;border-radius:30px;font-weight:bold}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-art{display:none}.cats{grid-template-columns:repeat(3,1fr)}.products{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.tag{display:none}nav{gap:14px}nav a{font-size:12px}.cats{grid-template-columns:repeat(2,1fr)}.two,.foot{grid-template-columns:1fr}.hero{padding:38px 6%}}
+
+/* Integração funcional OCAM MARKET */
+#adminEntry{display:none!important}
+#admin{display:block!important}
+body> .top, body>header, body>nav, body>main>section:not(#admin), body>footer, .float{display:none!important}
+body>main{padding-top:24px}
+#admin{max-width:1200px;margin:0 auto;background:transparent!important}
+#admin .head{margin-bottom:20px}
+</style></head><body>
+<div class="top"><span>📍 <b>Saurimo, Lunda Sul</b> · expansão nacional</span><span>☎ Apoio ao cliente: <b>+244 945 887 548</b></span></div>
+<header><a class="logo" href="#">🛒 OCAM<span>MARKET</span></a><div class="tag">O mercado de todos,<br>com a confiança da OCAM.</div>
+<form class="search" onsubmit="pesquisar(event)"><input id="q" placeholder="Pesquisar produtos ou categorias..."><button>⌕</button></form><a href="#fornecedores"><b>SEJA FORNECEDOR</b></a><a href="#area-fornecedor"><b>ÁREA DO FORNECEDOR</b></a><a href="#admin" id="adminEntry" style="font-size:13px;color:#10439a;font-weight:bold">Área administrativa</a></header>
+<nav><a href="#categorias">☰ Categorias</a><a href="#inicio">Início</a><a href="#produtos">Produtos</a><a href="#ofertas">Ofertas</a><a href="#como">Como funciona</a><a href="#sobre">Sobre a OCAM</a><a class="cta" href="https://wa.me/244945887548">Fale connosco ↗</a></nav>
+<main>
+<section class="hero" id="inicio"><div><h1>OCAM MARKET<br><span>Compra, vende e economiza!</span></h1><p>Tudo o que procura, num só lugar, com fornecedores aprovados e acompanhamento da OCAM.</p><a class="btn" href="#categorias">Explorar categorias →</a><div class="trust"><span>✓ Fornecedores aprovados</span><span>✓ Apoio ao cliente</span><span>✓ Entregas coordenadas</span></div></div><div class="hero-art">🛍️<br><span style="font-size:20px;color:#ffca22">O seu mercado online</span><br><span style="font-size:25px">na Lunda Sul</span></div></section>
+<section id="categorias"><div class="head"><h2>Explore as categorias</h2><p>Encontre o que precisa em diferentes áreas.</p></div><div class="cats">
+<a class="cat" href="#produtos"><i>📱</i>Telemóveis e tecnologia</a><a class="cat" href="#produtos"><i>📺</i>Eletrodomésticos</a><a class="cat" href="#produtos"><i>👕</i>Moda e acessórios</a><a class="cat" href="#produtos"><i>🛠️</i>Construção e ferramentas</a><a class="cat" href="#produtos"><i>🥫</i>Alimentação e bebidas</a><a class="cat" href="#produtos"><i>🌾</i>Produtos agrícolas</a><a class="cat" href="#produtos"><i>🚗</i>Peças automóveis</a><a class="cat" href="#produtos"><i>🧴</i>Beleza e cuidados</a><a class="cat" href="#produtos"><i>🛋️</i>Casa e decoração</a><a class="cat" href="#produtos"><i>＋</i>Outras categorias</a></div></section>
+<section id="produtos"><div class="head"><h2>Produtos em destaque</h2><p>Produtos publicados após aprovação da OCAM.</p></div><div class="products" id="grid">
+<div class="muted" id="publicProductsMessage">A carregar produtos aprovados...</div>
+</div><p class="muted">Para confirmar disponibilidade e condições de entrega, contacte a OCAM.</p></section>
+
+<section id="fornecedores">
+  <div class="panel" style="max-width:760px;margin:auto">
+    <h2>🤝 Seja fornecedor da OCAM MARKET</h2>
+    <p>Preencha os dados para apresentar a sua candidatura. A OCAM irá analisar e aprovar antes de permitir a publicação de produtos.</p>
+    <form id="supplierSignupForm">
+      <div class="two">
+        <div><label>Nome da empresa / comerciante</label><input id="sBusiness" required maxlength="120" style="width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></div>
+        <div><label>Telefone</label><input id="sPhone" required maxlength="30" style="width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></div>
+        <div><label>E-mail</label><input id="sEmail" type="email" required maxlength="160" style="width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></div>
+        <div><label>NIF (9 dígitos, se aplicável)</label><input id="sNif" inputmode="numeric" pattern="[0-9]{9}" maxlength="9" style="width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></div>
+        <div><label>Morada / localização</label><input id="sAddress" required maxlength="220" style="width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></div>
+        <div><label>Descrição da actividade</label><input id="sDescription" required maxlength="500" style="width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></div>
+        <div><label>Palavra-passe (mínimo 8 caracteres)</label><input id="sPassword" type="password" minlength="8" autocomplete="new-password" required style="width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></div>
+        <div><label>Confirmar palavra-passe</label><input id="sPassword2" type="password" minlength="8" autocomplete="new-password" required style="width:100%;padding:12px;margin:6px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></div>
+      </div>
+      <button class="btn" type="submit">Enviar candidatura</button>
+    </form>
+    <p id="supplierSignupMessage" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="two" id="ofertas"><div class="panel dark"><h2>🛍️ Quer comprar?</h2><p>Escolha o produto, envie o pedido à OCAM e receba acompanhamento até à entrega.</p><a class="btn" href="https://wa.me/244945887548?text=Ola%2C%20quero%20fazer%20uma%20encomenda%20na%20OCAM%20MARKET">Fazer uma encomenda</a></div>
+<div class="panel"><h2>🤝 É fornecedor?</h2><p>Apresente a sua empresa através do formulário de candidatura.</p><a class="btn" href="#fornecedores">Candidatar-me como fornecedor</a></div></section>
+<section id="como"><div class="head"><h2>Como funciona?</h2><p>A OCAM acompanha cada pedido do início à entrega.</p></div><div class="steps"><div class="step"><b>01 · Escolha</b>O cliente encontra o produto.</div><div class="step"><b>02 · Encomenda</b>Envia o pedido à OCAM.</div><div class="step"><b>03 · Confirmação</b>A OCAM confirma stock, preço e condições.</div><div class="step"><b>04 · Entrega</b>A OCAM coordena a entrega e informa o cliente.</div></div></section>
+
+<section id="area-fornecedor" style="background:#f8faff"><div class="head"><h2>Área do Fornecedor</h2><p>Entre para consultar a sua candidatura e, quando aprovado, cadastrar produtos para análise da OCAM.</p></div><div class="panel" id="supplierLoginBox" style="max-width:520px;margin:auto"><form id="supplierLoginForm"><label for="supplierLoginEmail">E-mail utilizado no cadastro</label><input id="supplierLoginEmail" type="email" autocomplete="username" required style="display:block;width:100%;padding:13px;margin:8px 0 14px;border:1px solid #ccd6e5;border-radius:8px"><label for="supplierLoginPassword">Palavra-passe</label><input id="supplierLoginPassword" type="password" autocomplete="current-password" required style="display:block;width:100%;padding:13px;margin:8px 0 14px;border:1px solid #ccd6e5;border-radius:8px"><button class="btn" type="submit">Entrar na área do fornecedor</button></form><p id="supplierLoginMessage" role="status" aria-live="polite"></p></div><div class="panel" id="supplierPortalPanel" style="display:none;max-width:760px;margin:18px auto"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><div><h3>O meu cadastro</h3><p id="supplierPortalEmail" class="muted"></p></div><button class="btn" id="supplierLogout" type="button">Terminar sessão</button></div><div id="supplierPortalDetails"></div>
+<div id="supplierProductsArea" style="display:none;margin-top:24px;border-top:1px solid #e4eaf3;padding-top:20px">
+  <h3>Cadastrar novo produto</h3>
+  <p class="muted">Os produtos enviados ficam pendentes até à aprovação da OCAM.</p>
+  <form id="productForm">
+    <label for="productName">Nome do produto</label>
+    <input id="productName" required maxlength="120" style="display:block;width:100%;padding:12px;margin:7px 0 12px;border:1px solid #ccd6e5;border-radius:8px">
+    <label for="productCategory">Categoria</label>
+    <select id="productCategory" required style="display:block;width:100%;padding:12px;margin:7px 0 12px;border:1px solid #ccd6e5;border-radius:8px"><option value="">A carregar categorias...</option></select>
+    <label for="productDescription">Descrição</label>
+    <textarea id="productDescription" rows="3" maxlength="1500" style="display:block;width:100%;padding:12px;margin:7px 0 12px;border:1px solid #ccd6e5;border-radius:8px"></textarea>
+    <label for="productPrice">Preço (Kz)</label>
+    <input id="productPrice" type="number" min="0" step="0.01" required style="display:block;width:100%;padding:12px;margin:7px 0 12px;border:1px solid #ccd6e5;border-radius:8px">
+    <label for="productStock">Quantidade em stock</label>
+    <input id="productStock" type="number" min="0" step="1" required style="display:block;width:100%;padding:12px;margin:7px 0 12px;border:1px solid #ccd6e5;border-radius:8px">
+    <label for="productImageFiles">Fotografias do produto (até 5)</label>
+    <input id="productImageFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple style="display:block;width:100%;padding:12px;margin:7px 0 8px;border:1px solid #ccd6e5;border-radius:8px">
+    <small class="muted">Escolha até 5 fotografias da galeria. JPG, PNG ou WebP. Máximo de 5 MB por fotografia. A primeira será a fotografia principal.</small>
+    <div id="productImagePreview" class="muted" style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0"></div>
+    <label for="productImage">Ou cole um link de fotografia (opcional)</label>
+    <input id="productImage" type="url" placeholder="https://..." style="display:block;width:100%;padding:12px;margin:7px 0 12px;border:1px solid #ccd6e5;border-radius:8px">
+    <button class="btn" type="submit">Enviar produto para aprovação</button>
+  </form>
+  <p id="productFormMessage" role="status" aria-live="polite"></p>
+  <h3 style="margin-top:24px">Os meus produtos</h3>
+  <div id="supplierProductsList"></div>
+</div>
+</div></section>
+<section id="admin" style="background:#eef3fb">
+  <div class="head"><h2>Área administrativa OCAM</h2>
+  <p>Acesso reservado à administração. A tua conta será validada pelo Supabase.</p></div>
+  <div class="panel" id="adminLoginBox" style="max-width:520px;margin:auto">
+    <h3>Entrar na administração</h3>
+    <form id="adminLoginForm">
+      <label for="adminEmail">E-mail administrativo</label>
+      <input id="adminEmail" type="email" autocomplete="username" required
+        style="display:block;width:100%;padding:13px;margin:8px 0 14px;border:1px solid #ccd6e5;border-radius:8px">
+      <label for="adminPassword">Palavra-passe</label>
+      <input id="adminPassword" type="password" autocomplete="current-password" required
+        style="display:block;width:100%;padding:13px;margin:8px 0 14px;border:1px solid #ccd6e5;border-radius:8px">
+      <button class="btn" type="submit">Entrar</button>
+    </form>
+    <p id="adminLoginMessage" role="status" aria-live="polite"></p>
+  </div>
+  <div class="panel" id="adminPanel" style="display:none">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+      <div><h3 style="margin-bottom:4px">Painel de fornecedores</h3><p id="adminIdentity" class="muted"></p></div>
+      <button class="btn" id="adminLogout" type="button">Terminar sessão</button>
+    </div>
+    <p id="supplierMessage" role="status" aria-live="polite"></p>
+    <div id="supplierList"></div>
+    <hr style="margin:28px 0;border:0;border-top:1px solid #dce4ef">
+    <h3>Produtos para análise</h3>
+    <p class="muted">Apenas produtos aprovados ficam visíveis no catálogo público.</p>
+    <p id="adminProductMessage" role="status" aria-live="polite"></p>
+    <div id="adminProductList"></div>
+  </div>
+</section>
+
+<section class="two" id="sobre"><div class="panel"><h2>Sobre a OCAM MARKET</h2><p>Uma plataforma de comércio e intermediação que aproxima clientes e fornecedores aprovados, começando na Lunda Sul e com visão de expansão nacional.</p></div><div class="panel"><h2>Confiança em cada negócio</h2><p>Rede de fornecedores avaliados, informação clara sobre produtos e apoio ao cliente durante a compra.</p></div></section>
+</main>
+<footer id="contactos"><div class="foot"><div><div class="logo" style="color:white">🛒 OCAM<span>MARKET</span></div><p>O mercado de todos, com a confiança da OCAM.<br>Base inicial: Saurimo, Lunda Sul.</p></div><div><h3>Explorar</h3><a href="#categorias">Categorias</a><br><a href="#produtos">Produtos</a><br><a href="#fornecedores">Seja fornecedor</a></div><div><h3>Contactos</h3><p>Apoio ao cliente<br><b>+244 945 887 548</b><br><a href="https://wa.me/244945887548">WhatsApp OCAM</a></p></div></div><div class="copy">© 2026 OCAM MARKET. Uma iniciativa OCAM Comércio e Prestação de Serviços.</div></footer>
+<a class="float" href="https://wa.me/244945887548">WhatsApp OCAM</a>
+<script>function pesquisar(e){e.preventDefault();let q=document.getElementById('q').value.toLowerCase().trim();document.querySelectorAll('#grid .card').forEach(c=>c.style.display=(!q||(c.dataset.key||'').includes(q)||c.innerText.toLowerCase().includes(q))?'block':'none');document.getElementById('produtos').scrollIntoView({behavior:'smooth'});}</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  const SUPABASE_URL = 'https://nxlagmcqifiqsfyszlsi.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_x5_YSzYBwNvZGtuCUC0ISw_RgPsS2uI';
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+  async function loadPublicProducts() {
+    const grid = document.getElementById('grid');
+    const message = document.getElementById('publicProductsMessage');
+    if (!grid) return;
+    const {data, error} = await client.from('products')
+      .select('id,name,description,price,stock,image_url,status')
+      .eq('status','approved')
+      .gt('stock',0)
+      .order('created_at',{ascending:false});
+    if (error) {
+      if (message) message.textContent = 'Não foi possível carregar os produtos. Tente actualizar a página.';
+      console.error('Catálogo OCAM:', error.message);
+      return;
+    }
+    if (!data || data.length === 0) {
+      if (message) message.textContent = 'Ainda não existem produtos aprovados disponíveis.';
+      return;
+    }
+    const productIds = data.map(p => p.id);
+    const {data: galleries, error: galleryError} = await client.from('product_images')
+      .select('product_id,image_url,sort_order')
+      .in('product_id',productIds)
+      .order('sort_order',{ascending:true});
+    if (galleryError) console.warn('Galeria de imagens indisponível:', galleryError.message);
+    const galleryMap = {};
+    (galleries || []).forEach(img => {
+      if (!galleryMap[img.product_id]) galleryMap[img.product_id] = [];
+      galleryMap[img.product_id].push(img.image_url);
+    });
+    grid.innerHTML = data.map(p => {
+      const photos = galleryMap[p.id] || (p.image_url ? [p.image_url] : []);
+      const visual = photos.length
+        ? `<div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px">${photos.map((url,index) => `<img src="${escapeHtml(url)}" alt="${escapeHtml(p.name)} — fotografia ${index+1}" loading="lazy" style="flex:0 0 100%;width:100%;height:180px;object-fit:contain;background:#f0f4fb;border-radius:10px">`).join('')}</div>`
+        : '<div class="pic">🛍️</div>';
+      const description = p.description ? escapeHtml(p.description) : 'Consulte a OCAM para mais informações.';
+      const price = Number(p.price).toLocaleString('pt-PT');
+      const searchable = `${p.name} ${p.description || ''}`.toLowerCase();
+      const messageText = encodeURIComponent('Olá, gostaria de informações sobre o produto: ' + p.name);
+      return `<article class="card" data-key="${escapeHtml(searchable)}">
+        ${visual}<h3>${escapeHtml(p.name)}</h3><p>${description}</p>
+        <div class="price">${price} Kz</div><p class="muted">Disponíveis: ${Number(p.stock)}</p>
+        <a class="btn" href="https://wa.me/244945887548?text=${messageText}" target="_blank" rel="noopener">Consultar disponibilidade</a>
+      </article>`;
+    }).join('');
+  }
+
+
+
+  loadPublicProducts();
+
+  const loginBox = document.getElementById('adminLoginBox');
+  const panel = document.getElementById('adminPanel');
+  const loginForm = document.getElementById('adminLoginForm');
+  const loginMessage = document.getElementById('adminLoginMessage');
+  const supplierMessage = document.getElementById('supplierMessage');
+  const supplierList = document.getElementById('supplierList');
+
+  const supplierSignupForm = document.getElementById('supplierSignupForm');
+  const supplierSignupMessage = document.getElementById('supplierSignupMessage');
+  const supplierLoginForm = document.getElementById('supplierLoginForm');
+  const supplierLoginMessage = document.getElementById('supplierLoginMessage');
+  const supplierLoginBox = document.getElementById('supplierLoginBox');
+  const supplierPortalPanel = document.getElementById('supplierPortalPanel');
+  const supplierPortalDetails = document.getElementById('supplierPortalDetails');
+  supplierLoginForm.addEventListener('submit', async (event) => {
+    event.preventDefault(); say(supplierLoginMessage, 'A validar os dados...');
+    const email=document.getElementById('supplierLoginEmail').value.trim();
+    const password=document.getElementById('supplierLoginPassword').value;
+    const {data,error}=await client.auth.signInWithPassword({email,password});
+    if(error){say(supplierLoginMessage,'Não foi possível entrar. Confirma o e-mail e a palavra-passe.',true);return;}
+    await showSupplierPortal(data.user);
+  });
+  async function showSupplierPortal(user){
+    const {data:profile,error:pe}=await client.from('profiles').select('role').eq('id',user.id).single();
+    if(pe||!profile||profile.role!=='customer'){say(supplierLoginMessage,'Esta conta não está registada como conta de fornecedor.',true);await client.auth.signOut();return;}
+    await finishPendingSupplierApplication(user);
+    const {data:supplier,error}=await client.from('suppliers').select('id,business_name,verification_status,rejection_reason').eq('profile_id',user.id).maybeSingle();
+    if(error){say(supplierLoginMessage,'Não foi possível consultar a candidatura: '+error.message,true);return;}
+    if(!supplier){say(supplierLoginMessage,'Ainda não encontramos uma candidatura associada a esta conta. Volte ao formulário e envie os dados, ou contacte o apoio OCAM.',true);return;}
+    supplierLoginBox.style.display='none';supplierPortalPanel.style.display='block';document.getElementById('supplierPortalEmail').textContent=user.email||'';
+    const labels={pending:'Pendente — aguarda análise da OCAM.',approved:'Aprovado — já pode cadastrar produtos para análise da OCAM.',rejected:'Rejeitado — contacte a OCAM para esclarecimentos.',suspended:'Suspenso — contacte o apoio OCAM.'};
+    supplierPortalDetails.innerHTML='<h3>'+escapeHtml(supplier.business_name)+'</h3><p><b>Estado:</b> '+escapeHtml(labels[supplier.verification_status]||supplier.verification_status)+'</p>'+(supplier.rejection_reason?'<p><b>Motivo:</b> '+escapeHtml(supplier.rejection_reason)+'</p>':'');
+    const productsArea = document.getElementById('supplierProductsArea');
+    if (supplier.verification_status === 'approved') {
+      currentSupplier = supplier;
+      productsArea.style.display = 'block';
+      await loadProductCategories();
+      await loadSupplierProducts(supplier.id);
+    } else {
+      currentSupplier = null;
+      productsArea.style.display = 'none';
+    }
+  }
+
+  let currentSupplier = null;
+
+  async function loadSupplierProducts(supplierId) {
+    const list = document.getElementById('supplierProductsList');
+    list.innerHTML = '<p class="muted">A carregar produtos...</p>';
+    const {data, error} = await client.from('products')
+      .select('id,name,price,stock,status,created_at')
+      .eq('supplier_id', supplierId).order('created_at', {ascending:false});
+    if (error) { list.innerHTML = '<p>Não foi possível carregar os produtos: '+escapeHtml(error.message)+'</p>'; return; }
+    if (!data || !data.length) { list.innerHTML = '<p class="muted">Ainda não submeteu produtos.</p>'; return; }
+    const labels = {pending:'Pendente',approved:'Aprovado',rejected:'Rejeitado',suspended:'Suspenso'};
+    list.innerHTML = data.map(p => `<article class="card" style="margin:10px 0">
+      <h4>${escapeHtml(p.name)}</h4><p>Preço: ${Number(p.price).toLocaleString('pt-PT')} Kz · Stock: ${p.stock}</p>
+      <p><b>Estado:</b> ${escapeHtml(labels[p.status] || p.status)}</p>
+    </article>`).join('');
+  }
+
+  async function loadProductCategories() {
+    const select = document.getElementById('productCategory');
+    const {data,error} = await client.from('categories').select('id,name').order('name');
+    if (error) { select.innerHTML = '<option value="">Não foi possível carregar categorias</option>'; return; }
+    select.innerHTML = '<option value="">Seleccione uma categoria</option>' +
+      (data || []).map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+  }
+
+
+  const productImageFilesInput = document.getElementById('productImageFiles');
+  if (productImageFilesInput) {
+    productImageFilesInput.addEventListener('change', () => {
+      const files = Array.from(productImageFilesInput.files || []);
+      const preview = document.getElementById('productImagePreview');
+      if (files.length > 5) {
+        productImageFilesInput.value = '';
+        preview.textContent = 'Seleccione no máximo 5 fotografias.';
+        return;
+      }
+      preview.innerHTML = '';
+      files.forEach(file => {
+        if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024) {
+          preview.textContent = 'Cada fotografia deve ser JPG, PNG ou WebP e ter até 5 MB.';
+          productImageFilesInput.value = '';
+          return;
+        }
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.alt = 'Pré-visualização da fotografia';
+        img.style.cssText = 'width:76px;height:76px;object-fit:cover;border-radius:8px;border:1px solid #ccd6e5';
+        preview.appendChild(img);
+      });
+      if (files.length) {
+        const count = document.createElement('small');
+        count.textContent = `${files.length} de 5 fotografias seleccionadas`;
+        preview.appendChild(count);
+      }
+    });
+  }
+
+  document.getElementById('productForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!currentSupplier) { say(document.getElementById('productFormMessage'),'Sessão de fornecedor não identificada.',true); return; }
+    const submit = event.currentTarget.querySelector('button[type="submit"]');
+    submit.disabled = true;
+    say(document.getElementById('productFormMessage'),'A enviar produto para análise...');
+    const imageFiles = Array.from(document.getElementById('productImageFiles').files || []);
+    let imageUrl = document.getElementById('productImage').value.trim() || null;
+    if (imageFiles.length > 5) {
+      say(document.getElementById('productFormMessage'),'Pode seleccionar no máximo 5 fotografias.',true);
+      submit.disabled = false;
+      return;
+    }
+    for (const file of imageFiles) {
+      if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024) {
+        say(document.getElementById('productFormMessage'),'Cada fotografia deve ser JPG, PNG ou WebP e não pode ultrapassar 5 MB.',true);
+        submit.disabled = false;
+        return;
+      }
+    }
+    const payload = {
+      supplier_id: currentSupplier.id,
+      category_id: document.getElementById('productCategory').value,
+      name: document.getElementById('productName').value.trim(),
+      description: document.getElementById('productDescription').value.trim(),
+      price: Number(document.getElementById('productPrice').value),
+      stock: Number(document.getElementById('productStock').value),
+      image_url: imageUrl
+    };
+    const {data: insertedProducts, error} = await client.from('products').insert(payload).select('id').single();
+    if (error) {
+      say(document.getElementById('productFormMessage'),'Não foi possível enviar: '+error.message,true);
+      submit.disabled = false;
+      return;
+    }
+    const productId = insertedProducts.id;
+    const imageRows = [];
+    for (let i = 0; i < imageFiles.length; i++) {
+      const file = imageFiles[i];
+      const extension = file.type === 'image/jpeg' ? 'jpg' : file.type === 'image/png' ? 'png' : 'webp';
+      const filePath = `${currentSupplier.id}/${productId}/${crypto.randomUUID()}.${extension}`;
+      say(document.getElementById('productFormMessage'),`A carregar fotografia ${i + 1} de ${imageFiles.length}...`);
+      const {error: uploadError} = await client.storage.from('produtos-imagens').upload(filePath,file,{contentType:file.type,upsert:false});
+      if (uploadError) {
+        say(document.getElementById('productFormMessage'),'O produto foi criado, mas houve um erro ao carregar as fotografias: '+uploadError.message+'. Contacte a OCAM para corrigir o cadastro.',true);
+        submit.disabled = false;
+        return;
+      }
+      const {data: publicData} = client.storage.from('produtos-imagens').getPublicUrl(filePath);
+      imageRows.push({product_id:productId,supplier_id:currentSupplier.id,image_url:publicData.publicUrl,storage_path:filePath,sort_order:i});
+    }
+    if (imageRows.length) {
+      const {error: imageInsertError} = await client.from('product_images').insert(imageRows);
+      if (imageInsertError) {
+        say(document.getElementById('productFormMessage'),'O produto foi criado, mas não foi possível guardar a galeria: '+imageInsertError.message+'. Contacte a OCAM.',true);
+        submit.disabled = false;
+        return;
+      }
+      // Backward compatibility: first image remains in products.image_url.
+      await client.from('products').update({image_url:imageRows[0].image_url}).eq('id',productId);
+    }
+    event.currentTarget.reset();
+    document.getElementById('productImagePreview').innerHTML = '';
+    say(document.getElementById('productFormMessage'),'Produto enviado! Ficou pendente até à aprovação da OCAM.');
+    await loadSupplierProducts(currentSupplier.id);
+    submit.disabled = false;
+  });
+
+  async function loadAdminProducts() {
+    const target = document.getElementById('adminProductList');
+    const msg = document.getElementById('adminProductMessage');
+    say(msg,'A carregar produtos...');
+    const {data,error} = await client.from('products')
+      .select('id,name,price,stock,status,image_url,suppliers(business_name)')
+      .order('created_at',{ascending:false});
+    if (error) { say(msg,'Não foi possível carregar produtos: '+error.message,true); return; }
+    const rows = data || [];
+    if (!rows.length) { target.innerHTML='<p class="muted">Ainda não existem produtos submetidos.</p>'; say(msg,'Consulta concluída.'); return; }
+    target.innerHTML = rows.map(p => {
+      let buttons = '';
+      if (p.status === 'pending') buttons = `<button class="btn" data-product-action="approved" data-product-id="${p.id}">Aprovar</button> <button class="btn" style="background:#f5c2c7" data-product-action="rejected" data-product-id="${p.id}">Rejeitar</button>`;
+      else if (p.status === 'approved') buttons = `<button class="btn" style="background:#e7eaf0" data-product-action="suspended" data-product-id="${p.id}">Suspender</button>`;
+      else if (p.status === 'suspended' || p.status === 'rejected') buttons = `<button class="btn" data-product-action="approved" data-product-id="${p.id}">Aprovar</button>`;
+      return `<article class="card" style="margin:10px 0">
+        <h4>${escapeHtml(p.name)}</h4><p>Fornecedor: ${escapeHtml(p.suppliers?.business_name || 'Fornecedor')}</p>
+        <p>Preço: ${Number(p.price).toLocaleString('pt-PT')} Kz · Stock: ${p.stock}</p>
+        <p><b>Estado:</b> ${escapeHtml(p.status)}</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${buttons}</div>
+      </article>`;
+    }).join('');
+    say(msg,'Produtos encontrados: '+rows.length);
+  }
+
+  document.getElementById('adminProductList').addEventListener('click', async (event) => {
+    const button = event.target.closest('button[data-product-action]');
+    if (!button) return;
+    const status = button.dataset.productAction;
+    if (!confirm('Confirmas a alteração do estado deste produto?')) return;
+    button.disabled = true;
+    const {error} = await client.from('products').update({status}).eq('id',button.dataset.productId);
+    if (error) { say(document.getElementById('adminProductMessage'),'Não foi possível actualizar: '+error.message,true); button.disabled=false; return; }
+    say(document.getElementById('adminProductMessage'),'Estado do produto actualizado.');
+    await loadAdminProducts();
+  });
+
+  document.getElementById('supplierLogout').addEventListener('click',async()=>{await client.auth.signOut();supplierPortalPanel.style.display='none';supplierLoginBox.style.display='block';supplierPortalDetails.innerHTML='';supplierLoginForm.reset();say(supplierLoginMessage,'Sessão terminada.');});
+
+
+  supplierSignupForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const business_name = document.getElementById('sBusiness').value.trim();
+    const phone = document.getElementById('sPhone').value.trim();
+    const email = document.getElementById('sEmail').value.trim().toLowerCase();
+    const nif = document.getElementById('sNif').value.trim();
+    const address = document.getElementById('sAddress').value.trim();
+    const description = document.getElementById('sDescription').value.trim();
+    const password = document.getElementById('sPassword').value;
+    const password2 = document.getElementById('sPassword2').value;
+
+    if (password !== password2) {
+      say(supplierSignupMessage, 'As palavras-passe não coincidem.', true);
+      return;
+    }
+    if (nif && !/^\\d{9}$/.test(nif)) {
+      say(supplierSignupMessage, 'O NIF deve conter exactamente 9 dígitos.', true);
+      return;
+    }
+
+    const submit = supplierSignupForm.querySelector('button[type="submit"]');
+    submit.disabled = true;
+    say(supplierSignupMessage, 'A criar a conta e a enviar a candidatura...');
+    const { data, error } = await client.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: business_name }, emailRedirectTo: 'https://inspiring-tartufo-6d1406.netlify.app/' }
+    });
+
+    if (error) {
+      say(supplierSignupMessage, 'Não foi possível criar a conta: ' + error.message, true);
+      submit.disabled = false;
+      return;
+    }
+
+    if (!data.session) {
+      // Keep only non-secret application data until the email is verified.
+      localStorage.setItem('ocam_supplier_application', JSON.stringify({
+        business_name, phone, business_email: email, nif, address, description
+      }));
+      say(supplierSignupMessage,
+        'Conta criada. Confirme o e-mail recebido e depois entre com a mesma conta nesta página para concluir a candidatura. Por segurança, a palavra-passe não foi guardada.');
+      submit.disabled = false;
+      return;
+    }
+
+    const { error: appError } = await client.rpc('submit_supplier_application', {
+      p_business_name: business_name,
+      p_phone: phone,
+      p_business_email: email,
+      p_nif: nif || null,
+      p_address: address,
+      p_description: description
+    });
+
+    if (appError) {
+      say(supplierSignupMessage, 'A conta foi criada, mas a candidatura não foi registada: ' + appError.message + '. Inicie sessão e contacte o apoio OCAM para concluir.', true);
+      submit.disabled = false;
+      return;
+    }
+    supplierSignupForm.reset();
+    say(supplierSignupMessage, 'Candidatura enviada com sucesso! O estado inicial é PENDENTE e a OCAM irá analisar os seus dados.');
+    submit.disabled = false;
+  });
+
+  // If email confirmation is enabled, a verified supplier can sign in to finish the saved application.
+  async function finishPendingSupplierApplication(user) {
+    const raw = localStorage.getItem('ocam_supplier_application');
+    if (!raw || !user) return;
+    let app;
+    try { app = JSON.parse(raw); } catch (_) { localStorage.removeItem('ocam_supplier_application'); return; }
+    if ((user.email || '').toLowerCase() !== (app.business_email || '').toLowerCase()) return;
+    const { error } = await client.rpc('submit_supplier_application', {
+      p_business_name: app.business_name,
+      p_phone: app.phone,
+      p_business_email: app.business_email,
+      p_nif: app.nif || null,
+      p_address: app.address,
+      p_description: app.description
+    });
+    if (!error) {
+      localStorage.removeItem('ocam_supplier_application');
+      say(supplierSignupMessage, 'Candidatura enviada com sucesso após confirmação do e-mail. Aguarde a análise da OCAM.');
+    } else {
+      say(supplierSignupMessage, 'Não foi possível concluir a candidatura: ' + error.message, true);
+    }
+  }
+
+
+  function say(el, message, error=false) {
+    el.textContent = message;
+    el.style.color = error ? '#b42318' : '#176b3a';
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  async function showAdmin(user) {
+    const { data: profile, error } = await client
+      .from('profiles').select('full_name, role').eq('id', user.id).single();
+
+    if (error || !profile || profile.role !== 'admin') {
+      await client.auth.signOut();
+      loginBox.style.display = 'block';
+      panel.style.display = 'none';
+      say(loginMessage, 'Esta conta não tem permissões de administrador.', true);
+      return;
+    }
+
+    loginBox.style.display = 'none';
+    panel.style.display = 'block';
+    document.getElementById('adminIdentity').textContent =
+      (profile.full_name || user.email) + ' · Administrador';
+    await loadSuppliers();
+    await loadAdminProducts();
+  }
+
+  async function loadSuppliers() {
+    say(supplierMessage, 'A carregar fornecedores...');
+    const { data, error } = await client
+      .from('suppliers')
+      .select('id,business_name,phone,business_email,nif,address,verification_status,rejection_reason,created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      say(supplierMessage, 'Não foi possível carregar os fornecedores: ' + error.message, true);
+      return;
+    }
+    if (!data || data.length === 0) {
+      supplierList.innerHTML = '<p>Não existem fornecedores registados.</p>';
+      say(supplierMessage, 'Consulta concluída.');
+      return;
+    }
+
+    supplierList.innerHTML = data.map(s => {
+      const status = escapeHtml(s.verification_status);
+      let actions = '';
+      if (s.verification_status === 'pending') {
+        actions = `<button class="btn" data-action="approved" data-id="${s.id}">Aprovar</button>
+                   <button class="btn" style="background:#f5c2c7" data-action="rejected" data-id="${s.id}">Rejeitar</button>`;
+      } else if (s.verification_status === 'approved') {
+        actions = `<button class="btn" style="background:#e7eaf0" data-action="suspended" data-id="${s.id}">Suspender</button>`;
+      } else if (s.verification_status === 'suspended') {
+        actions = `<button class="btn" data-action="approved" data-id="${s.id}">Reactivar</button>`;
+      } else if (s.verification_status === 'rejected') {
+        actions = `<button class="btn" data-action="approved" data-id="${s.id}">Aprovar candidatura</button>`;
+      }
+
+      return `<article class="card" style="margin:12px 0">
+        <h3>${escapeHtml(s.business_name)}</h3>
+        <p><b>Estado:</b> ${status}</p>
+        <p><b>Telefone:</b> ${escapeHtml(s.phone || 'Não indicado')}</p>
+        <p><b>E-mail:</b> ${escapeHtml(s.business_email || 'Não indicado')}</p>
+        <p><b>NIF:</b> ${escapeHtml(s.nif || 'Não indicado')}</p>
+        <p><b>Morada:</b> ${escapeHtml(s.address || 'Não indicada')}</p>
+        ${s.rejection_reason ? `<p><b>Motivo da rejeição:</b> ${escapeHtml(s.rejection_reason)}</p>` : ''}
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${actions || '<span>Sem acções disponíveis.</span>'}</div>
+      </article>`;
+    }).join('');
+    say(supplierMessage, 'Fornecedores carregados: ' + data.length);
+  }
+
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    say(loginMessage, 'A validar acesso...');
+    const email = document.getElementById('adminEmail').value.trim();
+    const password = document.getElementById('adminPassword').value;
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error) {
+      say(loginMessage, 'Não foi possível iniciar sessão. Verifica os dados de acesso.', true);
+      return;
+    }
+    await finishPendingSupplierApplication(data.user);
+    await showAdmin(data.user);
+  });
+
+  supplierList.addEventListener('click', async (event) => {
+    const button = event.target.closest('button[data-action]');
+    if (!button) return;
+    const status = button.dataset.action;
+    const id = button.dataset.id;
+    let reason = null;
+    if (status === 'rejected') {
+      reason = prompt('Indica o motivo da rejeição:');
+      if (!reason || !reason.trim()) {
+        say(supplierMessage, 'A rejeição precisa de um motivo.', true);
+        return;
+      }
+    }
+    if (!confirm('Confirmas esta alteração do fornecedor?')) return;
+    button.disabled = true;
+    const { error } = await client.rpc('review_supplier', {
+      p_supplier_id: id,
+      p_status: status,
+      p_rejection_reason: reason
+    });
+    if (error) {
+      say(supplierMessage, 'A operação não foi concluída: ' + error.message, true);
+      button.disabled = false;
+      return;
+    }
+    say(supplierMessage, 'Estado actualizado com sucesso.');
+    await loadSuppliers();
+  });
+
+  document.getElementById('adminLogout').addEventListener('click', async () => {
+    await client.auth.signOut();
+    panel.style.display = 'none';
+    loginBox.style.display = 'block';
+    supplierList.innerHTML = '';
+    say(loginMessage, 'Sessão terminada.');
+  });
+
+  client.auth.getSession().then(({data}) => {
+    if (data.session) showAdmin(data.session.user);
+  });
+})();
+</script>
+
+</body></html>
